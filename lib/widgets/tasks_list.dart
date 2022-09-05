@@ -17,10 +17,10 @@ class TasksList extends StatelessWidget {
             taskTitle: currentTask.taskTitle,
             isChecked: currentTask.isDone,
             changeState: (newValue) {
-              taskData.checkOf(currentTask);
+              taskData.checkOf(index);
             },
             taskDeleter: () {
-              taskData.deleteTask(currentTask);
+              taskData.deleteTask(index);
             },
           );
         },

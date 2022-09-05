@@ -6,7 +6,11 @@ class TasksTile extends StatelessWidget {
   final void Function(bool?) changeState;
   final VoidCallback taskDeleter;
   const TasksTile(
-      {this.isChecked = false, required this.taskTitle, required this.changeState, required this.taskDeleter});
+      {super.key,
+      this.isChecked = false,
+      required this.taskTitle,
+      required this.changeState,
+      required this.taskDeleter});
 
   @override
   Widget build(BuildContext context) {

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:todoey/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:todoey/models/task_data.dart';
 
+const kBlueBG = Color(0xFF1A1A40);
+
 class AddTaskScreen extends StatelessWidget {
   late String newTask;
-  // final Function addTask;
+
   AddTaskScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {

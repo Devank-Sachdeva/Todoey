@@ -1,33 +1,32 @@
 import 'package:flutter/foundation.dart';
 import 'package:todoey/models/Task.dart';
-import 'package:collection/collection.dart';
+import 'package:hive/hive.dart';
 
 class TaskData extends ChangeNotifier {
-  final List<Task> _tasks = [
-    Task(taskTitle: 'Do Homework'),
-    Task(taskTitle: 'Code'),
-    Task(taskTitle: 'Shit yourself'),
-  ];
-  UnmodifiableListView<Task> get tasks {
-    return UnmodifiableListView(_tasks);
-  }
+  var box = Hive.box<Task>('tasks');
+  List<Task> tasks = Hive.box<Task>('tasks').values.toList();
 
   int get count {
-    return _tasks.length;
+    return box.length;
   }
 
   void addTaskToList(String newTask) {
-    _tasks.add(Task(taskTitle: newTask));
+    box.add(Task(taskTitle: newTask));
+    tasks = Hive.box<Task>('tasks').values.toList();
     notifyListeners();
   }
 
-  void checkOf(Task task) {
-    task.changeState();
+  void checkOf(int index) {
+    Task? ini = box.getAt(index);
+    Task? update = Task(taskTitle: ini?.taskTitle ?? ' ', isDone: !ini!.isDone);
+    box.putAt(index, update);
+    tasks = Hive.box<Task>('tasks').values.toList();
     notifyListeners();
   }
 
-  void deleteTask(Task yeet) {
-    _tasks.remove(yeet);
+  void deleteTask(int index) {
+    box.deleteAt(index);
+    tasks = Hive.box<Task>('tasks').values.toList();
     notifyListeners();
   }
 }
